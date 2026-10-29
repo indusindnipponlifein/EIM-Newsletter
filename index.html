@@ -1,211 +1,713 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thailand Training Convention</title>
+<meta name="theme-color" content="#6E1423">
+<title>Newsletter Showcase</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+
 <style>
-:root{
-  --maroon-deep:#6E1423;
-  --maroon-mid:#4A0F1C;
-  --maroon-night:#230811;
-  --red-signal:#E63946;
-  --red-error:#A11A2B;
-  --grey-warm:#5B534F;
-  --ink:#241016;
-  --white:#FFFFFF;
-  --success:#2A9D6F;
-  --gold-deep:#B8862E;
-  --gold:#E3B54F;
-  --gold-light:#F6DFA0;
-  --font-display:'Instrument Serif', Georgia, serif;
-  --font-body:'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;}
-body{
-  position:relative;
-  min-height:100vh;
-  overflow-x:hidden;
-  font-family:var(--font-body);
-  background-color:var(--maroon-night);
+:root {
+  --maroon: #6E1423;
+  --maroon-dark: #4A0F1C;
+  --red: #C8323F;
+  --background: #F4F2F0;
+  --white: #FFFFFF;
+  --text: #292326;
+  --grey: #77716F;
+  --line: #E4DFDD;
+  --success: #2A7F5F;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'IBM Plex Sans', Arial, sans-serif;
 }
 
-.bg-photo{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--maroon-night);}
-.bg-photo img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;}
-.bg-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(180deg, rgba(74,15,28,.08) 0%, rgba(35,8,17,.12) 50%, rgba(20,4,9,.20) 100%);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* celebratory confetti, one burst on load */
-.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1;}
-.confetti span{position:absolute;top:-8%;width:7px;height:13px;opacity:0;border-radius:1px;animation:confettiFall 3.4s ease-in forwards;}
-@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1;}85%{opacity:1;}100%{transform:translateY(72vh) rotate(340deg);opacity:0;}}
-.confetti span:nth-child(1){left:6%;background:var(--red-signal);animation-delay:.10s;}
-.confetti span:nth-child(2){left:14%;background:var(--white);animation-delay:.50s;}
-.confetti span:nth-child(3){left:22%;background:var(--grey-warm);animation-delay:.15s;}
-.confetti span:nth-child(4){left:30%;background:var(--white);animation-delay:.65s;}
-.confetti span:nth-child(5){left:38%;background:var(--red-signal);animation-delay:.30s;}
-.confetti span:nth-child(6){left:46%;background:var(--white);animation-delay:.05s;}
-.confetti span:nth-child(7){left:54%;background:var(--grey-warm);animation-delay:.45s;}
-.confetti span:nth-child(8){left:62%;background:var(--white);animation-delay:.20s;}
-.confetti span:nth-child(9){left:70%;background:var(--red-signal);animation-delay:.55s;}
-.confetti span:nth-child(10){left:78%;background:var(--white);animation-delay:.35s;}
-.confetti span:nth-child(11){left:86%;background:var(--grey-warm);animation-delay:.10s;}
-.confetti span:nth-child(12){left:94%;background:var(--white);animation-delay:.50s;}
-.confetti span:nth-child(13){left:50%;background:var(--red-signal);animation-delay:.60s;}
-.confetti span:nth-child(14){left:18%;background:var(--white);animation-delay:.40s;}
-
-/* layout */
-.stage{position:relative;z-index:2;max-width:560px;margin:0 auto;padding:43vh 24px 44px;text-align:center;}
-
-.subcopy{
-  font-family:var(--font-body);font-size:1rem;line-height:1.6;color:var(--gold-light);
-  max-width:420px;margin:0 auto;animation:rise .8s ease both;
+body {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 10% 5%, rgba(110,20,35,.07), transparent 35%),
+    var(--background);
 }
 
-@keyframes rise{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
-
-/* card */
-.card{
-  position:relative;z-index:1;background:var(--white);border-radius:18px;
-  padding:34px 30px;margin:28px auto 0;max-width:400px;text-align:center;
-  box-shadow:0 24px 55px rgba(15,3,8,.5);
-  animation:rise .9s .3s ease both;
-}
-.badge{
-  position:absolute;top:-18px;right:-14px;width:52px;height:52px;border-radius:50%;
-  background:var(--red-signal);border:2px solid rgba(227,181,79,.7);display:flex;align-items:center;justify-content:center;
-  font-size:24px;box-shadow:0 6px 16px rgba(0,0,0,.3);
-  animation:badgeIn .5s .8s cubic-bezier(.34,1.56,.64,1) both;
-}
-@keyframes badgeIn{0%{transform:scale(0);opacity:0;}100%{transform:scale(1);opacity:1;}}
-
-.input-wrap{
-  padding:2px;border-radius:12px;margin-bottom:16px;
-  background:linear-gradient(135deg, var(--gold-deep), var(--gold-light), var(--gold-deep));
-}
-input{
-  display:block;width:100%;padding:14px 16px;font-size:16px;font-family:var(--font-body);color:var(--ink);
-  border-radius:10px;border:none;outline:none;text-align:center;
-  background:#FFFAF0;
-  transition:box-shadow .2s ease;
-}
-input:focus{box-shadow:0 0 0 4px rgba(212,175,55,.28);}
-input::placeholder{color:#A68A5B;}
-
-button{
-  width:100%;padding:15px;border:1px solid rgba(227,181,79,.55);border-radius:10px;cursor:pointer;
-  background:linear-gradient(135deg, var(--maroon-deep), #8A1B2E);color:var(--gold-light);
-  font-family:var(--font-body);font-weight:600;font-size:16px;letter-spacing:.03em;
-  transition:transform .2s ease, box-shadow .2s ease;
-}
-button:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(110,20,35,.35);}
-button:active{transform:translateY(0);}
-button:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none;}
-button:focus-visible, input:focus-visible{outline:2px solid var(--red-signal);outline-offset:2px;}
-
-.loader{
-  display:none;margin-top:16px;align-items:center;justify-content:center;gap:8px;
-  font-family:var(--font-body);font-size:14px;color:var(--grey-warm);
-}
-.loader.show{display:flex;}
-.spinner{
-  width:14px;height:14px;border:2px solid rgba(110,20,35,.18);border-top-color:var(--maroon-deep);
-  border-radius:50%;display:inline-block;animation:spin .8s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg);}}
-
-#msg{margin-top:14px;text-align:center;font-weight:600;font-family:var(--font-body);font-size:15px;}
-.success{color:var(--success);}
-.error{color:var(--red-error);}
-
-.footer-note{margin-top:22px;font-family:var(--font-body);font-size:14px;font-weight:500;color:var(--gold-light);animation:rise .9s .45s ease both;}
-
-@media (max-width:480px){
-  .stage{padding-left:18px;padding-right:18px;padding-bottom:32px;}
-  .card{padding:28px 22px;}
+.topbar {
+  min-height: 70px;
+  padding: 16px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
 }
 
-@media (prefers-reduced-motion: reduce){
-  *, *::before, *::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 5px;
+  background: var(--maroon);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 25px;
+}
+
+.brand-title {
+  color: var(--maroon-dark);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.brand-subtitle {
+  margin-top: 3px;
+  color: var(--grey);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.header-label {
+  color: var(--grey);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+main {
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 55px 22px 60px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.eyebrow {
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 6vw, 54px);
+  line-height: 1.1;
+  font-weight: 400;
+  color: var(--maroon-dark);
+}
+
+h1 span {
+  color: var(--maroon);
+}
+
+.hero p {
+  max-width: 440px;
+  margin: 13px auto 0;
+  color: var(--grey);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.search-card {
+  max-width: 490px;
+  margin: 0 auto 26px;
+  padding: 25px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  box-shadow: 0 12px 32px rgba(42,19,24,.05);
+}
+
+.search-card h2 {
+  color: var(--maroon-dark);
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.search-card p {
+  margin: 8px 0 18px;
+  color: var(--grey);
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  min-height: 47px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #FCFBFB;
+  color: var(--text);
+  font: 14px var(--font-body);
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--maroon);
+  box-shadow: 0 0 0 3px rgba(110,20,35,.09);
+}
+
+button {
+  font-family: var(--font-body);
+}
+
+.search-button {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 12px;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background: var(--maroon);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background: var(--red);
+}
+
+.search-button:disabled {
+  opacity: .65;
+  cursor: wait;
+}
+
+.status {
+  margin-top: 13px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.error {
+  color: #A11A2B;
+}
+
+.success {
+  color: var(--success);
+}
+
+.newsletter-section {
+  display: none;
+  margin-top: 30px;
+}
+
+.section-heading {
+  margin-bottom: 17px;
+  text-align: center;
+}
+
+.section-heading h2 {
+  color: var(--maroon-dark);
+  font-family: var(--font-display);
+  font-size: 31px;
+  font-weight: 400;
+}
+
+.section-heading p {
+  margin-top: 5px;
+  color: var(--grey);
+  font-size: 12px;
+}
+
+/* Only available newsletter tabs are inserted here */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  margin-bottom: 18px;
+}
+
+.tab {
+  min-width: 105px;
+  padding: 12px 17px;
+  border: 1px solid #D9CECF;
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--maroon);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.tab:hover,
+.tab.active {
+  background: var(--maroon);
+  border-color: var(--maroon);
+  color: var(--white);
+}
+
+.newsletter-panel {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 28px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  box-shadow: 0 12px 32px rgba(42,19,24,.05);
+  text-align: center;
+}
+
+.newsletter-number {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: #F4E9EB;
+  color: var(--maroon);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+
+.newsletter-panel h3 {
+  margin-top: 14px;
+  color: var(--maroon-dark);
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.newsletter-date {
+  margin-top: 8px;
+  color: var(--grey);
+  font-size: 12px;
+}
+
+.open-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 22px;
+  padding: 12px 22px;
+  border-radius: 5px;
+  background: var(--maroon);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.open-link:hover {
+  background: var(--red);
+}
+
+.empty-state {
+  display: none;
+  max-width: 490px;
+  margin: 20px auto;
+  padding: 25px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--grey);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+footer {
+  padding: 20px;
+  border-top: 1px solid var(--line);
+  background: rgba(255,255,255,.6);
+  color: var(--grey);
+  font-size: 11px;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .topbar {
+    padding: 14px 18px;
+  }
+
+  .header-label {
+    max-width: 100px;
+    text-align: right;
+    line-height: 1.5;
+    font-size: 9px;
+  }
+
+  main {
+    padding: 40px 15px 45px;
+  }
+
+  .search-card {
+    padding: 22px 18px;
+  }
+
+  .tab {
+    flex: 1 1 28%;
+    min-width: 85px;
+    padding: 11px 8px;
+  }
+
+  .newsletter-panel {
+    padding: 24px 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<div class="bg-photo" aria-hidden="true">
-  <img src="https://i.ibb.co/0ptbsV67/1792142228978.png" alt="">
-  <div class="bg-overlay"></div>
-</div>
-
-<div class="confetti" aria-hidden="true">
-  <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-  <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-</div>
-
-<main class="stage">
-  <p class="subcopy">Enter your details below to view your personalised experience</p>
-
-  <section class="card">
-    <span class="badge" aria-hidden="true">🎉</span>
-
-    <div class="input-wrap">
-      <input
-        id="input"
-        placeholder="Advisor code / SAP ID / Mobile No."
-        autocomplete="off"
-      >
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">N</div>
+    <div>
+      <div class="brand-title">NEWSLETTER HUB</div>
+      <div class="brand-subtitle">Knowledge • Updates • Excellence</div>
     </div>
-    <button onclick="searchDoc()" id="btn">Click to view & download!</button>
+  </div>
+  <div class="header-label">Your Personal Library</div>
+</header>
 
-    <div class="loader" id="loader"><span class="spinner"></span><span>Searching...</span></div>
-    <div id="msg"></div>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Stay Informed</div>
+    <h1>Your Newsletter <span>Collection</span></h1>
+    <p>
+      Enter your Employee ID or registered mobile number
+      to access your available newsletters.
+    </p>
   </section>
 
-  <p class="footer-note">Make The Most Of It 📈</p>
+  <section class="search-card">
+    <h2>Access Your Newsletters</h2>
+    <p>Only newsletters assigned to you will be displayed.</p>
+
+    <form id="searchForm">
+      <label for="employeeInput">Employee ID / Mobile Number</label>
+      <input
+        id="employeeInput"
+        type="text"
+        placeholder="Enter your details"
+        autocomplete="off"
+        required
+      >
+      <button class="search-button" id="searchButton" type="submit">
+        Find My Newsletters
+      </button>
+    </form>
+
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </section>
+
+  <section class="newsletter-section" id="newsletterSection">
+    <div class="section-heading">
+      <h2>Your Newsletters</h2>
+      <p>Select a newsletter to view its date and open the publication.</p>
+    </div>
+
+    <div class="tabs" id="newsletterTabs"></div>
+
+    <div class="newsletter-panel" id="newsletterPanel">
+      <span class="newsletter-number" id="newsletterNumber"></span>
+      <h3 id="newsletterTitle"></h3>
+      <p class="newsletter-date" id="newsletterDate"></p>
+      <a
+        class="open-link"
+        id="openLink"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Open Newsletter ↗
+      </a>
+    </div>
+  </section>
+
+  <div class="empty-state" id="emptyState">
+    No newsletters are currently available for your account.
+    Please check again later or contact your administrator.
+  </div>
 </main>
 
-<script>
-const API_URL="https://script.google.com/macros/s/AKfycbwVFXGXwlBGDM5Ke1z519CYikfeuKCmNvgO-c87vUsl8zcLYn5QIBiByure-wXaNPvG/exec";
+<footer>
+  Your newsletter collection • Stay connected, stay informed
+</footer>
 
-async function searchDoc(){
-  const value=document.getElementById("input").value.trim();
-  const msg=document.getElementById("msg");
-  const loader=document.getElementById("loader");
-  const btn=document.getElementById("btn");
-  msg.innerHTML="";
-  if(value===""){
-    msg.className="error";
-    msg.innerHTML="Please enter your L1 code, Employee ID or Mobile Number.";
+<script>
+/* --------------------------------------------------
+   CONFIGURATION: UPDATE THESE VALUES
+-------------------------------------------------- */
+
+// Replace this with your deployed Apps Script web app URL.
+const API_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+// Update newsletter dates here only.
+// These dates are not stored in Google Sheets.
+const NEWSLETTER_DATES = {
+  NL_1: "01 October 2026",
+  NL_2: "15 October 2026",
+  NL_3: "01 November 2026",
+  NL_4: "15 November 2026",
+  NL_5: "01 December 2026",
+  NL_6: "15 December 2026"
+};
+
+// Newsletter display titles.
+const NEWSLETTER_TITLES = {
+  NL_1: "Newsletter 1",
+  NL_2: "Newsletter 2",
+  NL_3: "Newsletter 3",
+  NL_4: "Newsletter 4",
+  NL_5: "Newsletter 5",
+  NL_6: "Newsletter 6"
+};
+
+/* --------------------------------------------------
+   APPLICATION LOGIC
+-------------------------------------------------- */
+
+const searchForm = document.getElementById("searchForm");
+const employeeInput = document.getElementById("employeeInput");
+const searchButton = document.getElementById("searchButton");
+const statusBox = document.getElementById("status");
+const newsletterSection = document.getElementById("newsletterSection");
+const newsletterTabs = document.getElementById("newsletterTabs");
+const newsletterNumber = document.getElementById("newsletterNumber");
+const newsletterTitle = document.getElementById("newsletterTitle");
+const newsletterDate = document.getElementById("newsletterDate");
+const openLink = document.getElementById("openLink");
+const emptyState = document.getElementById("emptyState");
+
+const NEWSLETTER_KEYS = [
+  "NL_1", "NL_2", "NL_3", "NL_4", "NL_5", "NL_6"
+];
+
+let activeNewsletter = null;
+
+searchForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+  searchNewsletters();
+});
+
+function setStatus(message, type) {
+  statusBox.textContent = message;
+  statusBox.className = "status" + (type ? " " + type : "");
+}
+
+function setLoading(loading) {
+  searchButton.disabled = loading;
+  searchButton.textContent = loading
+    ? "Searching..."
+    : "Find My Newsletters";
+}
+
+function searchNewsletters() {
+  const input = employeeInput.value.trim();
+
+  newsletterSection.style.display = "none";
+  emptyState.style.display = "none";
+  newsletterTabs.replaceChildren();
+  setStatus("", "");
+
+  if (!input) {
+    setStatus("Please enter your Employee ID or Mobile Number.", "error");
     return;
   }
-  loader.classList.add("show");
-  btn.disabled=true;
-  try{
-    const response=await fetch(API_URL+"?input="+encodeURIComponent(value));
-    const data=await response.json();
-    loader.classList.remove("show");
-    btn.disabled=false;
-    if(data.status==="success"){
-      msg.className="success";
-      msg.innerHTML="Agenda found! Downloading...";
-      window.open(data.url,"_blank");
-    }else{
-      msg.className="error";
-      msg.innerHTML=data.message;
+
+  if (API_URL === "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE") {
+    setStatus("Please configure your Apps Script web app URL first.", "error");
+    return;
+  }
+
+  setLoading(true);
+  setStatus("Retrieving your newsletters...", "");
+
+  const callbackName =
+    "newsletterCallback_" + Date.now() + "_" +
+    Math.floor(Math.random() * 100000);
+
+  const script = document.createElement("script");
+  let completed = false;
+
+  const timeout = setTimeout(function() {
+    finish();
+    setStatus(
+      "Unable to connect to the server. Please try again.",
+      "error"
+    );
+  }, 20000);
+
+  function finish() {
+    if (completed) return;
+    completed = true;
+    clearTimeout(timeout);
+    script.remove();
+    delete window[callbackName];
+    setLoading(false);
+  }
+
+  window[callbackName] = function(data) {
+    finish();
+
+    if (!data || data.status !== "success") {
+      setStatus(
+        data && data.message
+          ? data.message
+          : "No matching employee record was found.",
+        "error"
+      );
+      return;
     }
-  }catch(err){
-    loader.classList.remove("show");
-    btn.disabled=false;
-    msg.className="error";
-    msg.innerHTML="Unable to connect to server.";
+
+    renderNewsletters(data.newsletters || {});
+  };
+
+  script.onerror = function() {
+    finish();
+    setStatus(
+      "Unable to connect to the server. Check your deployment URL.",
+      "error"
+    );
+  };
+
+  script.src = API_URL +
+    "?input=" + encodeURIComponent(input) +
+    "&callback=" + encodeURIComponent(callbackName) +
+    "&_=" + Date.now();
+
+  document.body.appendChild(script);
+}
+
+function renderNewsletters(newsletters) {
+  newsletterTabs.replaceChildren();
+  activeNewsletter = null;
+
+  const available = NEWSLETTER_KEYS.filter(function(key) {
+    const url = String(newsletters[key] || "").trim();
+
+    // Hide empty or invalid links.
+    if (!url) return false;
+
+    try {
+      const parsed = new URL(url);
+      return parsed.protocol === "https:" || parsed.protocol === "http:";
+    } catch (error) {
+      return false;
+    }
+  });
+
+  if (available.length === 0) {
+    newsletterSection.style.display = "none";
+    emptyState.style.display = "block";
+    setStatus("Your record was found, but no newsletter links are available.", "");
+    return;
+  }
+
+  emptyState.style.display = "none";
+  newsletterSection.style.display = "block";
+
+  available.forEach(function(key) {
+    const tab = document.createElement("button");
+    tab.type = "button";
+    tab.className = "tab";
+    tab.textContent = key.replace("_", " ");
+    tab.dataset.key = key;
+
+    tab.addEventListener("click", function() {
+      showNewsletter(key, newsletters[key]);
+    });
+
+    newsletterTabs.appendChild(tab);
+  });
+
+  showNewsletter(available[0], newsletters[available[0]]);
+
+  setStatus(
+    available.length + " newsletter" +
+      (available.length === 1 ? "" : "s") +
+      " available for you.",
+    "success"
+  );
+
+  newsletterSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+function showNewsletter(key, url) {
+  activeNewsletter = key;
+
+  newsletterTabs.querySelectorAll(".tab").forEach(function(tab) {
+    const selected = tab.dataset.key === key;
+    tab.classList.toggle("active", selected);
+    tab.setAttribute("aria-pressed", String(selected));
+  });
+
+  newsletterNumber.textContent = key.replace("_", " ");
+  newsletterTitle.textContent =
+    NEWSLETTER_TITLES[key] || "Newsletter";
+
+  newsletterDate.textContent =
+    "Newsletter date: " +
+    (NEWSLETTER_DATES[key] || "Date to be announced");
+
+  // Validate URL before creating the external link.
+  try {
+    const parsed = new URL(url);
+
+    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
+      throw new Error("Invalid URL protocol");
+    }
+
+    openLink.href = parsed.href;
+    openLink.style.display = "inline-flex";
+  } catch (error) {
+    openLink.removeAttribute("href");
+    openLink.style.display = "none";
   }
 }
 </script>
+
 </body>
 </html>

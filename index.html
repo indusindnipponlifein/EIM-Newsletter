@@ -7,21 +7,14 @@
 <meta name="theme-color" content="#4A0F1C">
 <title>Newsletter Showcase</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
-
 <style>
 :root {
   --maroon: #6E1423;
   --maroon-dark: #4A0F1C;
   --red: #C8323F;
-  --white: #FFFFFF;
   --text: #292326;
   --grey: #77716F;
   --line: #E4DFDD;
-  --font-display: 'Instrument Serif', Georgia, serif;
-  --font-body: 'IBM Plex Sans', Arial, sans-serif;
 }
 
 * {
@@ -35,15 +28,15 @@ html {
 
 body {
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
-  font-family: var(--font-body);
-  color: var(--white);
+  font-family: Arial, sans-serif;
   background-color: var(--maroon-dark);
   background-image:
     linear-gradient(
       180deg,
-      rgba(42, 7, 16, 0.55),
-      rgba(42, 7, 16, 0.76)
+      rgba(42, 7, 16, 0.15),
+      rgba(42, 7, 16, 0.25)
     ),
     url("https://d2bja440mdt72x.cloudfront.net/thailand-letters/PPTapotrait.png");
   background-position: center center;
@@ -57,117 +50,42 @@ input {
   font: inherit;
 }
 
+/* Position the search tab lower on the background image */
+
 .page {
   min-height: 100vh;
-  padding: 0 20px 36px;
-}
-
-/* Header */
-
-.topbar {
+  min-height: 100dvh;
   width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 20px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+  padding: 0 18px 30px;
 }
-
-.brand {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-}
-
-.brand span {
-  display: block;
-  margin-top: 4px;
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 1.2px;
-  opacity: 0.8;
-}
-
-.header-label {
-  padding: 7px 11px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 4px;
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-/* Main content */
 
 .main {
   width: 100%;
   max-width: 650px;
   margin: 0 auto;
-  padding-top: 48px;
+  padding-top: 58vh;
+  padding-top: 58dvh;
 }
 
-.hero {
-  margin-bottom: 26px;
-  text-align: center;
-}
-
-.eyebrow {
-  margin: 0 0 10px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2.6px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.hero h1 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(38px, 7vw, 54px);
-  font-weight: 400;
-  line-height: 1.05;
-}
-
-.hero h1 span {
-  display: block;
-}
-
-.hero p {
-  max-width: 440px;
-  margin: 13px auto 0;
-  font-size: 13px;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-/* Search panel */
+/* Search tab */
 
 .search-panel {
-  padding: 24px;
-  background: rgba(255, 255, 255, 0.97);
-  color: var(--text);
+  width: 100%;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 9px;
-  box-shadow: 0 15px 40px rgba(22, 3, 8, 0.22);
-}
-
-.search-panel label {
-  display: block;
-  margin-bottom: 9px;
-  font-size: 12px;
-  font-weight: 600;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 12px 32px rgba(20, 4, 9, 0.2);
 }
 
 .input-row {
   display: flex;
+  align-items: stretch;
   gap: 10px;
 }
 
 .input-row input {
+  flex: 1;
   width: 100%;
   min-width: 0;
   height: 46px;
@@ -175,8 +93,8 @@ input {
   border: 1px solid var(--line);
   border-radius: 5px;
   outline: none;
-  color: var(--text);
   background: #FFFFFF;
+  color: var(--text);
   font-size: 13px;
 }
 
@@ -185,10 +103,15 @@ input {
   box-shadow: 0 0 0 3px rgba(110, 20, 35, 0.1);
 }
 
+.input-row input::placeholder {
+  color: #77716F;
+  opacity: 1;
+}
+
 .input-row button {
   flex-shrink: 0;
-  min-width: 105px;
-  padding: 0 17px;
+  min-width: 125px;
+  padding: 0 15px;
   border: 0;
   border-radius: 5px;
   background: var(--maroon);
@@ -208,20 +131,16 @@ input {
   cursor: wait;
 }
 
-.helper {
-  margin: 10px 0 0;
-  color: var(--grey);
-  font-size: 11px;
-  line-height: 1.5;
-}
+/* Status messages stay inside the search tab */
 
 .status {
   display: none;
-  margin-top: 14px;
-  padding: 11px 12px;
+  margin-top: 12px;
+  padding: 10px 12px;
   border-radius: 5px;
   font-size: 12px;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .status.visible {
@@ -238,46 +157,26 @@ input {
   color: #236747;
 }
 
-/* Scrollable newsletter list */
+/* Scrollable newsletter results */
 
 .newsletter-section {
   display: none;
   width: 100%;
-  margin: 30px auto 0;
-  scroll-margin-top: 20px;
-}
-
-.section-heading {
-  margin-bottom: 17px;
-  text-align: center;
-}
-
-.section-heading h2 {
-  margin: 0;
-  color: #FFFFFF;
-  font-family: var(--font-display);
-  font-size: 34px;
-  font-weight: 400;
-}
-
-.section-heading p {
-  margin: 6px 0 0;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 12px;
-  line-height: 1.6;
+  margin: 16px auto 0;
+  scroll-margin-top: 16px;
 }
 
 .newsletter-list {
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  gap: 12px;
   max-height: 55vh;
   max-height: 55dvh;
   overflow-y: auto;
-  padding: 3px 7px 9px 3px;
+  padding: 3px 6px 8px 3px;
   overscroll-behavior: contain;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.65) rgba(255, 255, 255, 0.15);
+  scrollbar-color: rgba(255,255,255,.75) rgba(255,255,255,.15);
 }
 
 .newsletter-list::-webkit-scrollbar {
@@ -285,24 +184,24 @@ input {
 }
 
 .newsletter-list::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255,255,255,.15);
   border-radius: 10px;
 }
 
 .newsletter-list::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255,255,255,.75);
   border-radius: 10px;
 }
 
 .newsletter-item {
   flex: 0 0 auto;
-  padding: 19px 21px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 18px 20px;
+  border: 1px solid rgba(255,255,255,.7);
   border-left: 4px solid var(--maroon);
   border-radius: 7px;
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(255,255,255,.97);
   color: var(--text);
-  box-shadow: 0 7px 20px rgba(20, 4, 9, 0.16);
+  box-shadow: 0 7px 20px rgba(20,4,9,.16);
 }
 
 .newsletter-item-top {
@@ -315,8 +214,8 @@ input {
 .newsletter-item h3 {
   margin: 0;
   color: var(--maroon);
-  font-family: var(--font-display);
-  font-size: 26px;
+  font-family: Georgia, serif;
+  font-size: 25px;
   font-weight: 400;
 }
 
@@ -341,8 +240,7 @@ input {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-top: 15px;
+  margin-top: 14px;
   padding: 10px 15px;
   border-radius: 5px;
   background: var(--maroon);
@@ -350,104 +248,61 @@ input {
   font-size: 12px;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s ease;
 }
 
 .open-link:hover {
   background: var(--red);
 }
 
-/* Empty state */
-
-.empty-state {
-  display: none;
-  margin-top: 22px;
-  padding: 24px 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  text-align: center;
-}
-
-.empty-state h3 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 25px;
-  font-weight: 400;
-}
-
-.empty-state p {
-  margin: 8px 0 0;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-.footer {
-  padding: 28px 0 0;
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 10px;
-  text-align: center;
-}
-
-/* Mobile */
+/* No extra text or footer outside the tab */
 
 @media (max-width: 520px) {
   .page {
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-
-  .topbar {
-    padding: 16px 0;
-  }
-
-  .brand {
-    font-size: 10px;
-    letter-spacing: 1.2px;
-  }
-
-  .header-label {
-    padding: 6px 8px;
-    font-size: 9px;
+    padding-right: 12px;
+    padding-left: 12px;
   }
 
   .main {
-    padding-top: 35px;
-  }
-
-  .hero {
-    margin-bottom: 22px;
-  }
-
-  .hero p {
-    font-size: 12px;
+    padding-top: 58vh;
+    padding-top: 58dvh;
   }
 
   .search-panel {
-    padding: 19px;
+    padding: 12px;
   }
 
   .input-row {
     flex-direction: column;
+    gap: 8px;
+  }
+
+  .input-row input {
+    height: 45px;
   }
 
   .input-row button {
     width: 100%;
-    height: 44px;
+    height: 43px;
   }
 
   .newsletter-list {
-    max-height: 52vh;
-    max-height: 52dvh;
+    max-height: 48vh;
+    max-height: 48dvh;
   }
 
   .newsletter-item {
-    padding: 16px;
+    padding: 15px;
   }
 
   .newsletter-item h3 {
-    font-size: 23px;
+    font-size: 22px;
+  }
+}
+
+@media (max-height: 600px) {
+  .main {
+    padding-top: 48vh;
+    padding-top: 48dvh;
   }
 }
 
@@ -455,59 +310,30 @@ input {
   html {
     scroll-behavior: auto;
   }
-
-  * {
-    transition: none !important;
-  }
 }
 </style>
 </head>
 
 <body>
 <div class="page">
-
-  <header class="topbar">
-    <div class="brand">
-      Newsletter Showcase
-      <span>Employee Publications</span>
-    </div>
-    <div class="header-label">Official Updates</div>
-  </header>
-
   <main class="main">
-
-    <section class="hero">
-      <p class="eyebrow">Your Reading Space</p>
-      <h1>
-        <span>Discover Your</span>
-        <span>Newsletters</span>
-      </h1>
-      <p>
-        Enter your Employee ID or registered mobile number
-        to access your available newsletters.
-      </p>
-    </section>
 
     <section class="search-panel">
       <form id="searchForm">
-        <label for="employeeInput">Employee ID / Mobile Number</label>
-
         <div class="input-row">
           <input
             type="text"
             id="employeeInput"
             name="input"
-            placeholder="Enter your details"
+            placeholder="Enter Employee ID / Mobile Number"
             autocomplete="off"
+            aria-label="Employee ID or Mobile Number"
             required
-            aria-describedby="inputHelp"
           >
-          <button type="submit" id="searchButton">View Newsletters</button>
+          <button type="submit" id="searchButton">
+            View Newsletters
+          </button>
         </div>
-
-        <p class="helper" id="inputHelp">
-          Your newsletters will appear below if they are available.
-        </p>
       </form>
 
       <div
@@ -521,43 +347,19 @@ input {
     <section
       class="newsletter-section"
       id="newsletterSection"
-      aria-labelledby="newsletterHeading"
+      aria-label="Available newsletters"
     >
-      <div class="section-heading">
-        <h2 id="newsletterHeading">Your Newsletters</h2>
-        <p>Select a newsletter to open the publication.</p>
-      </div>
-
       <div class="newsletter-list" id="newsletterList"></div>
     </section>
-
-    <section class="empty-state" id="emptyState">
-      <h3>No Newsletters Available</h3>
-      <p>
-        Your record was found, but no newsletter links are currently
-        available. Please check again later.
-      </p>
-    </section>
-
-    <footer class="footer">
-      Newsletter Showcase
-    </footer>
 
   </main>
 </div>
 
 <script>
-/* --------------------------------------------------
-   CONFIGURATION
-   Replace the URL below with your deployed Apps Script
-   Web App URL ending in /exec.
--------------------------------------------------- */
+/* Replace with your deployed Apps Script Web App URL. */
+const API_URL = "https://script.google.com/macros/s/AKfycbwVg4TFhhk--gzRg_k9aPW6h7lliAwj0sEy0bkEo_Nb3aM8IwhNhu4W3bBuiVrLaYQ/exec";
 
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbwVg4TFhhk--gzRg_k9aPW6h7lliAwj0sEy0bkEo_Nb3aM8IwhNhu4W3bBuiVrLaYQ/exec";
-
-/* Newsletter dates are maintained in this HTML file. */
-
+/* Maintain newsletter dates here in the HTML only. */
 const NEWSLETTER_DATES = {
   NL_1: "01 October 2026",
   NL_2: "15 October 2026",
@@ -577,12 +379,8 @@ const NEWSLETTER_TITLES = {
 };
 
 const NEWSLETTER_KEYS = [
-  "NL_1",
-  "NL_2",
-  "NL_3",
-  "NL_4",
-  "NL_5",
-  "NL_6"
+  "NL_1", "NL_2", "NL_3",
+  "NL_4", "NL_5", "NL_6"
 ];
 
 const searchForm = document.getElementById("searchForm");
@@ -591,13 +389,10 @@ const searchButton = document.getElementById("searchButton");
 const statusMessage = document.getElementById("statusMessage");
 const newsletterSection = document.getElementById("newsletterSection");
 const newsletterList = document.getElementById("newsletterList");
-const emptyState = document.getElementById("emptyState");
 
 let activeScript = null;
 let requestTimer = null;
 let requestId = 0;
-
-/* Show status messages */
 
 function setStatus(message, type) {
   statusMessage.textContent = message;
@@ -608,22 +403,15 @@ function setStatus(message, type) {
   }
 }
 
-/* Reset previous results */
-
 function clearResults() {
   newsletterList.replaceChildren();
   newsletterSection.style.display = "none";
-  emptyState.style.display = "none";
 }
-
-/* Validate newsletter links */
 
 function getValidNewsletterUrl(value) {
   const url = String(value || "").trim();
 
-  if (!url) {
-    return "";
-  }
+  if (!url) return "";
 
   try {
     const parsed = new URL(url);
@@ -641,8 +429,6 @@ function getValidNewsletterUrl(value) {
   }
 }
 
-/* Render available newsletters in a vertical scrollable list */
-
 function renderNewsletters(newsletters) {
   newsletterList.replaceChildren();
 
@@ -652,18 +438,12 @@ function renderNewsletters(newsletters) {
 
   if (available.length === 0) {
     newsletterSection.style.display = "none";
-    emptyState.style.display = "block";
-
     setStatus(
-      "Your record was found, but no valid newsletter links are available.",
-      ""
+      "No newsletter links are currently available for your record.",
+      "error"
     );
-
     return;
   }
-
-  emptyState.style.display = "none";
-  newsletterSection.style.display = "block";
 
   available.forEach(function(key) {
     const url = getValidNewsletterUrl(newsletters[key]);
@@ -704,52 +484,21 @@ function renderNewsletters(newsletters) {
     newsletterList.appendChild(item);
   });
 
+  newsletterSection.style.display = "block";
+
   setStatus(
     available.length +
       " newsletter" +
       (available.length === 1 ? "" : "s") +
-      " available for you.",
+      " available.",
     "success"
   );
 
   newsletterSection.scrollIntoView({
     behavior: "smooth",
-    block: "start"
+    block: "nearest"
   });
 }
-
-/* Handle Apps Script JSONP response */
-
-function handleResponse(data, currentRequestId) {
-  if (currentRequestId !== requestId) {
-    return;
-  }
-
-  cleanupRequest();
-
-  searchButton.disabled = false;
-  searchButton.textContent = "View Newsletters";
-
-  if (!data || typeof data !== "object") {
-    setStatus(
-      "The server returned an invalid response. Please try again.",
-      "error"
-    );
-    return;
-  }
-
-  if (data.status !== "success") {
-    setStatus(
-      data.message || "Unable to retrieve your newsletters.",
-      "error"
-    );
-    return;
-  }
-
-  renderNewsletters(data.newsletters || {});
-}
-
-/* Remove the temporary script and timeout */
 
 function cleanupRequest() {
   if (activeScript) {
@@ -765,7 +514,29 @@ function cleanupRequest() {
   delete window.newsletterResponse;
 }
 
-/* Submit employee ID or mobile number */
+function handleResponse(data, currentRequestId) {
+  if (currentRequestId !== requestId) return;
+
+  cleanupRequest();
+
+  searchButton.disabled = false;
+  searchButton.textContent = "View Newsletters";
+
+  if (!data || typeof data !== "object") {
+    setStatus("Invalid server response. Please try again.", "error");
+    return;
+  }
+
+  if (data.status !== "success") {
+    setStatus(
+      data.message || "Unable to retrieve newsletters.",
+      "error"
+    );
+    return;
+  }
+
+  renderNewsletters(data.newsletters || {});
+}
 
 searchForm.addEventListener("submit", function(event) {
   event.preventDefault();
@@ -773,10 +544,7 @@ searchForm.addEventListener("submit", function(event) {
   const input = employeeInput.value.trim();
 
   if (!input) {
-    setStatus(
-      "Please enter your Employee ID or Mobile Number.",
-      "error"
-    );
+    setStatus("Enter your Employee ID or Mobile Number.", "error");
     employeeInput.focus();
     return;
   }
@@ -785,18 +553,12 @@ searchForm.addEventListener("submit", function(event) {
     !API_URL ||
     API_URL === "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"
   ) {
-    setStatus(
-      "Please configure the Apps Script Web App URL in the HTML.",
-      "error"
-    );
+    setStatus("Configure the Apps Script URL in the HTML.", "error");
     return;
   }
 
   if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec\/?$/.test(API_URL)) {
-    setStatus(
-      "Please enter a valid deployed Apps Script Web App URL ending in /exec.",
-      "error"
-    );
+    setStatus("Enter a valid deployed Apps Script URL ending in /exec.", "error");
     return;
   }
 
@@ -808,11 +570,9 @@ searchForm.addEventListener("submit", function(event) {
 
   searchButton.disabled = true;
   searchButton.textContent = "Loading...";
-  setStatus("Checking your newsletter details...", "");
+  setStatus("Checking details...", "");
 
-  const callbackName = "newsletterResponse";
-
-  window[callbackName] = function(data) {
+  window.newsletterResponse = function(data) {
     handleResponse(data, currentRequestId);
   };
 
@@ -822,41 +582,31 @@ searchForm.addEventListener("submit", function(event) {
   activeScript.src =
     API_URL +
     separator +
-    "input=" +
-    encodeURIComponent(input) +
-    "&callback=" +
-    encodeURIComponent(callbackName) +
-    "&_=" +
-    Date.now();
+    "input=" + encodeURIComponent(input) +
+    "&callback=newsletterResponse" +
+    "&_=" + Date.now();
 
   activeScript.onerror = function() {
-    if (currentRequestId !== requestId) {
-      return;
-    }
+    if (currentRequestId !== requestId) return;
 
     cleanupRequest();
     searchButton.disabled = false;
     searchButton.textContent = "View Newsletters";
 
     setStatus(
-      "Unable to connect to the server. Check the Apps Script deployment and try again.",
+      "Unable to connect. Check your Apps Script deployment and try again.",
       "error"
     );
   };
 
   requestTimer = setTimeout(function() {
-    if (currentRequestId !== requestId) {
-      return;
-    }
+    if (currentRequestId !== requestId) return;
 
     cleanupRequest();
     searchButton.disabled = false;
     searchButton.textContent = "View Newsletters";
 
-    setStatus(
-      "The request timed out. Please try again.",
-      "error"
-    );
+    setStatus("Request timed out. Please try again.", "error");
   }, 20000);
 
   document.body.appendChild(activeScript);

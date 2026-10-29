@@ -12,13 +12,12 @@
   --maroon-dark: #4A0F1C;
   --red: #C8323F;
   --text: #292326;
-  --grey: #77716F;
+  --grey: #6B6567;
   --line: #E4DFDD;
+  --soft: #F7F1F2;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html {
   min-height: 100%;
@@ -29,88 +28,79 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
   background-color: var(--maroon-dark);
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(42, 7, 16, 0.15),
-      rgba(42, 7, 16, 0.25)
-    ),
-    url("https://d2bja440mdt72x.cloudfront.net/thailand-letters/PPTapotrait.png");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
 }
 
-button,
-input {
-  font: inherit;
+/* Background image: fixed layer (works on iOS too) with a dark fade
+   toward the bottom so the cards stay readable */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--maroon-dark);
+  background-image:
+    linear-gradient(180deg,
+      rgba(42, 7, 16, 0.05) 0%,
+      rgba(42, 7, 16, 0.25) 45%,
+      rgba(42, 7, 16, 0.65) 100%),
+    url("https://d2bja440mdt72x.cloudfront.net/thailand-letters/PPTapotrait.png");
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
+button, input { font: inherit; }
 
 .page {
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
-  padding: 0 18px 30px;
+  padding: 0 18px 40px;
 }
 
 .main {
   width: 100%;
-  max-width: 650px;
+  max-width: 640px;
   margin: 0 auto;
-  padding-top: 58vh;
-  padding-top: 58dvh;
+  padding-top: 56vh;
+  padding-top: 56dvh;
 }
 
-/* Main search tab */
+/* ---------- Search panel ---------- */
 
 .search-panel {
+  position: relative;
   width: 100%;
-  padding: 23px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 9px;
-  background: rgba(255, 255, 255, 0.97);
-  color: var(--text);
-  box-shadow: 0 12px 32px rgba(20, 4, 9, 0.2);
+  padding: 28px 26px 26px;
+  border-radius: 12px;
+  border-top: 4px solid var(--maroon);
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 24px 60px rgba(20, 4, 9, 0.35),
+    0 2px 6px rgba(20, 4, 9, 0.15);
 }
 
-.tab-heading {
-  margin-bottom: 20px;
-}
-
-.tab-eyebrow {
-  display: inline-block;
-  margin-bottom: 8px;
-  color: var(--maroon);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-
-.tab-heading h2 {
-  margin: 0;
-  color: var(--maroon-dark);
-  font-family: Georgia, serif;
-  font-size: clamp(25px, 5vw, 32px);
-  font-weight: 400;
-  line-height: 1.15;
-}
-
-.tab-heading p {
-  margin: 9px 0 0;
-  color: #686064;
-  font-size: 12px;
-  line-height: 1.7;
+.panel-intro {
+  margin: 0 0 22px;
+  color: #4B4447;
+  font-size: 14.5px;
+  line-height: 1.65;
+  max-width: 52ch;
 }
 
 .input-label {
   display: block;
   margin-bottom: 8px;
-  color: var(--text);
-  font-size: 12px;
-  font-weight: 700;
+  color: var(--maroon-dark);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
 }
 
 .input-row {
@@ -119,46 +109,76 @@ input {
   gap: 10px;
 }
 
-.input-row input {
+.input-wrap {
+  position: relative;
   flex: 1;
-  width: 100%;
   min-width: 0;
-  height: 46px;
-  padding: 0 13px;
+}
+
+.input-wrap svg {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
+  stroke: #9A9093;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.input-wrap input {
+  width: 100%;
+  height: 50px;
+  padding: 0 14px 0 42px;
   border: 1px solid var(--line);
-  border-radius: 5px;
+  border-radius: 8px;
   outline: none;
   background: #FFFFFF;
   color: var(--text);
-  font-size: 13px;
+  font-size: 15px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.input-row input:focus {
+.input-wrap input:focus {
   border-color: var(--maroon);
-  box-shadow: 0 0 0 3px rgba(110, 20, 35, 0.1);
+  box-shadow: 0 0 0 4px rgba(110, 20, 35, 0.12);
 }
 
-.input-row input::placeholder {
-  color: #77716F;
+.input-wrap input::placeholder {
+  color: #8C8386;
   opacity: 1;
 }
 
 .input-row button {
   flex-shrink: 0;
-  min-width: 125px;
-  padding: 0 15px;
+  min-width: 150px;
+  height: 50px;
+  padding: 0 20px;
   border: 0;
-  border-radius: 5px;
-  background: var(--maroon);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #7D1829 0%, var(--maroon) 100%);
   color: #FFFFFF;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
+  letter-spacing: 0.2px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  box-shadow: 0 6px 14px rgba(110, 20, 35, 0.3);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input-row button:hover {
-  background: var(--red);
+  background: linear-gradient(180deg, #D23B48 0%, var(--red) 100%);
+  box-shadow: 0 8px 18px rgba(200, 50, 63, 0.35);
+}
+
+.input-row button:focus-visible,
+.open-link:focus-visible {
+  outline: 3px solid #E9A7AE;
+  outline-offset: 2px;
 }
 
 .input-row button:disabled {
@@ -166,48 +186,42 @@ input {
   cursor: wait;
 }
 
-/* Feedback appears inside the tab */
+/* ---------- Status ---------- */
 
 .status {
   display: none;
-  margin-top: 13px;
-  padding: 11px 12px;
-  border-radius: 5px;
-  font-size: 12px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 13px;
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
 
-.status.visible {
-  display: block;
-}
+.status.visible { display: block; }
 
 .status.success {
   background: #EAF5EF;
-  color: #236747;
+  border: 1px solid #C8E5D4;
+  color: #1F5F42;
 }
 
-.status.success::before {
-  content: "✓ ";
-  font-weight: 700;
-}
+.status.success::before { content: "✓ "; font-weight: 700; }
 
 .status.error {
   background: #FBEDEE;
+  border: 1px solid #F1CDD1;
   color: #9B1C2B;
 }
 
-.status.error::before {
-  content: "! ";
-  font-weight: 700;
-}
+.status.error::before { content: "! "; font-weight: 700; }
 
-/* Newsletter results */
+/* ---------- Newsletter results ---------- */
 
 .newsletter-section {
   display: none;
   width: 100%;
-  margin: 16px auto 0;
+  margin: 18px auto 0;
   scroll-margin-top: 16px;
 }
 
@@ -224,29 +238,17 @@ input {
   scrollbar-color: rgba(255,255,255,.75) rgba(255,255,255,.15);
 }
 
-.newsletter-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.newsletter-list::-webkit-scrollbar-track {
-  background: rgba(255,255,255,.15);
-  border-radius: 10px;
-}
-
-.newsletter-list::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,.75);
-  border-radius: 10px;
-}
+.newsletter-list::-webkit-scrollbar { width: 6px; }
+.newsletter-list::-webkit-scrollbar-track { background: rgba(255,255,255,.15); border-radius: 10px; }
+.newsletter-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,.75); border-radius: 10px; }
 
 .newsletter-item {
   flex: 0 0 auto;
   padding: 18px 20px;
-  border: 1px solid rgba(255,255,255,.7);
   border-left: 4px solid var(--maroon);
-  border-radius: 7px;
-  background: rgba(255,255,255,.97);
-  color: var(--text);
-  box-shadow: 0 7px 20px rgba(20,4,9,.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 26px rgba(20, 4, 9, 0.22);
 }
 
 .newsletter-item-top {
@@ -259,26 +261,27 @@ input {
 .newsletter-item h3 {
   margin: 0;
   color: var(--maroon);
-  font-family: Georgia, serif;
-  font-size: 25px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
   font-weight: 400;
+  line-height: 1.2;
 }
 
 .newsletter-tag {
   flex-shrink: 0;
-  padding: 5px 9px;
-  border-radius: 4px;
-  background: #F4E9EB;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--soft);
   color: var(--maroon);
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   white-space: nowrap;
 }
 
 .newsletter-date {
-  margin: 7px 0 0;
+  margin: 8px 0 0;
   color: var(--grey);
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .open-link {
@@ -286,83 +289,38 @@ input {
   align-items: center;
   justify-content: center;
   margin-top: 14px;
-  padding: 10px 15px;
-  border-radius: 5px;
+  padding: 11px 18px;
+  border-radius: 8px;
   background: var(--maroon);
   color: #FFFFFF;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   text-decoration: none;
+  transition: background 0.2s ease;
 }
 
-.open-link:hover {
-  background: var(--red);
-}
+.open-link:hover { background: var(--red); }
 
-/* Mobile layout */
+/* ---------- Mobile ---------- */
 
 @media (max-width: 520px) {
-  .page {
-    padding-right: 12px;
-    padding-left: 12px;
-  }
-
-  .main {
-    padding-top: 58vh;
-    padding-top: 58dvh;
-  }
-
-  .search-panel {
-    padding: 19px;
-  }
-
-  .tab-heading {
-    margin-bottom: 17px;
-  }
-
-  .tab-heading p {
-    font-size: 12px;
-  }
-
-  .input-row {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .input-row input {
-    height: 45px;
-  }
-
-  .input-row button {
-    width: 100%;
-    height: 43px;
-  }
-
-  .newsletter-list {
-    max-height: 48vh;
-    max-height: 48dvh;
-  }
-
-  .newsletter-item {
-    padding: 15px;
-  }
-
-  .newsletter-item h3 {
-    font-size: 22px;
-  }
+  .page { padding-right: 12px; padding-left: 12px; }
+  .search-panel { padding: 22px 18px 20px; }
+  .panel-intro { font-size: 14px; margin-bottom: 18px; }
+  .input-row { flex-direction: column; gap: 10px; }
+  .input-row button { width: 100%; }
+  .newsletter-list { max-height: 48vh; max-height: 48dvh; }
+  .newsletter-item { padding: 16px; }
+  .newsletter-item h3 { font-size: 21px; }
 }
 
 @media (max-height: 600px) {
-  .main {
-    padding-top: 48vh;
-    padding-top: 48dvh;
-  }
+  .main { padding-top: 46vh; padding-top: 46dvh; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
 }
 </style>
 </head>
@@ -372,30 +330,28 @@ input {
   <main class="main">
 
     <section class="search-panel">
-      <div class="tab-heading">
-        <span class="tab-eyebrow">YOUR EXCLUSIVE ACCESS</span>
-        <h2>Discover Your Newsletters</h2>
-        <p>
-          Enter your Employee ID or registered mobile number
-          to find and access your available newsletters.
-        </p>
-      </div>
+      <p class="panel-intro">
+        Enter your Employee ID or registered mobile number
+        to find and access your available newsletters.
+      </p>
 
       <form id="searchForm">
-        <label class="input-label" for="employeeInput">
-          Employee ID / Mobile Number
-        </label>
-
         <div class="input-row">
-          <input
-            type="text"
-            id="employeeInput"
-            name="input"
-            placeholder="Enter your details here"
-            autocomplete="off"
-            aria-label="Employee ID or Mobile Number"
-            required
-          >
+          <div class="input-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="8" r="4"></circle>
+              <path d="M4 20c0-3.5 3.1-6 7-6s7 2.5 7 6"></path>
+            </svg>
+            <input
+              type="text"
+              id="employeeInput"
+              name="input"
+              placeholder="Employee ID / Mobile Number"
+              autocomplete="off"
+              aria-label="Employee ID or Mobile Number"
+              required
+            >
+          </div>
 
           <button type="submit" id="searchButton">
             Find Newsletters
@@ -483,10 +439,7 @@ function getValidNewsletterUrl(value) {
   try {
     const parsed = new URL(url);
 
-    if (
-      parsed.protocol !== "https:" &&
-      parsed.protocol !== "http:"
-    ) {
+    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
       return "";
     }
 
@@ -591,10 +544,7 @@ function handleResponse(data, currentRequestId) {
   searchButton.textContent = "Find Newsletters";
 
   if (!data || typeof data !== "object") {
-    setStatus(
-      "The server returned an invalid response. Please try again.",
-      "error"
-    );
+    setStatus("The server returned an invalid response. Please try again.", "error");
     return;
   }
 
@@ -620,19 +570,13 @@ searchForm.addEventListener("submit", function(event) {
     return;
   }
 
-  if (
-    !API_URL ||
-    API_URL === "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"
-  ) {
+  if (!API_URL || API_URL === "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE") {
     setStatus("Please configure the Apps Script URL in the HTML.", "error");
     return;
   }
 
   if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec\/?$/.test(API_URL)) {
-    setStatus(
-      "Please enter a valid deployed Apps Script URL ending in /exec.",
-      "error"
-    );
+    setStatus("Please enter a valid deployed Apps Script URL ending in /exec.", "error");
     return;
   }
 

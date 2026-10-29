@@ -18,13 +18,15 @@
   --line:#E4DFDD;
   --paper:#FFFFFF;
   --success:#2A7F5F;
+  --card-top:50vh;   /* how far down the card starts; change this to move it */
   --font-display:'Instrument Serif', Georgia, serif;
   --font-body:'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;}
+html{scrollbar-gutter:stable;}
 body{
-  position:relative;min-height:100vh;overflow-x:hidden;
+  position:relative;min-height:100vh;min-height:100svh;overflow-x:hidden;
   font-family:var(--font-body);color:var(--grey);
   background:var(--maroon-deep);
 }
@@ -42,9 +44,9 @@ body{
 
 /* ---------- Layout ---------- */
 .stage{
-  position:relative;z-index:2;min-height:100vh;
-  display:flex;align-items:flex-end;justify-content:center;
-  padding:0 20px 7vh;
+  position:relative;z-index:2;min-height:100vh;min-height:100svh;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:var(--card-top) 20px 48px;
 }
 .card{
   position:relative;width:100%;max-width:420px;
@@ -79,10 +81,9 @@ button{
   width:100%;padding:14px;border:none;border-radius:8px;cursor:pointer;
   background:var(--maroon);color:#fff;
   font-family:var(--font-body);font-weight:600;font-size:16px;letter-spacing:.02em;
-  transition:background .2s ease, transform .2s ease;
+  transition:background .2s ease;
 }
 button:hover{background:var(--red);}
-button:active{transform:translateY(1px);}
 button:disabled{opacity:.6;cursor:not-allowed;background:var(--maroon);}
 button:focus-visible, input:focus-visible{outline:2px solid var(--red);outline-offset:2px;}
 
@@ -101,13 +102,14 @@ button:focus-visible, input:focus-visible{outline:2px solid var(--red);outline-o
 #msg:empty{margin-top:0;}
 .success{color:var(--success);}
 .nl-title{color:var(--grey);font-weight:500;font-size:14px;margin-bottom:10px;}
-.open-link{display:block;margin-top:8px;padding:12px;border:1px solid var(--line);border-radius:8px;background:#FAF8F8;color:var(--maroon);font-weight:600;text-decoration:none;}
+.open-link{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:#FAF8F8;color:var(--maroon);font-weight:600;text-decoration:none;}
 .open-link:hover{border-color:var(--maroon);}
+.nl-date{font-weight:400;font-size:13px;color:var(--grey-soft);white-space:nowrap;}
 .error{color:var(--red-error);}
 
 
 @media (max-width:480px){
-  .stage{padding:0 14px 5vh;}
+  .stage{padding:var(--card-top) 14px 40px;}
   .card{padding:30px 22px 22px;}
   }
 @media (prefers-reduced-motion: reduce){
@@ -145,6 +147,17 @@ button:focus-visible, input:focus-visible{outline:2px solid var(--red);outline-o
 </main>
 
 <script>
+// Upload date shown on each newsletter button. Edit these in the HTML whenever a newsletter is updated.
+// Leave a value as "" to show no date for that newsletter.
+const NL_DATES={
+  NL_1:"16/10/2026",
+  NL_2:"02/11/2026",
+  NL_3:"",
+  NL_4:"",
+  NL_5:"",
+  NL_6:""
+};
+
 const API_URL="https://script.google.com/macros/s/AKfycbwVg4TFhhk--gzRg_k9aPW6h7lliAwj0sEy0bkEo_Nb3aM8IwhNhu4W3bBuiVrLaYQ/exec";
 
 async function searchDoc(){
@@ -180,7 +193,15 @@ async function searchDoc(){
         items.forEach(function(key){
           const a=document.createElement("a");
           a.href=data.newsletters[key];a.target="_blank";a.rel="noopener";a.className="open-link";
-          a.textContent="Newsletter "+key.replace("NL_","");
+          const name=document.createElement("span");
+          name.textContent="Newsletter "+key.replace("NL_","");
+          a.appendChild(name);
+          if(NL_DATES[key]){
+            const d=document.createElement("span");
+            d.className="nl-date";
+            d.textContent=NL_DATES[key];
+            a.appendChild(d);
+          }
           msg.appendChild(a);
         });
       }

@@ -2,635 +2,199 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#4A0F1C">
-<title>Newsletter Showcase</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MDRT Earning Opportunity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
 <style>
-:root {
-  --maroon: #6E1423;
-  --maroon-dark: #4A0F1C;
-  --red: #C8323F;
-  --text: #292326;
-  --grey: #6B6567;
-  --line: #E4DFDD;
-  --soft: #F7F1F2;
+:root{
+  --maroon:#6E1423;
+  --maroon-deep:#4A0F1C;
+  --red:#C8323F;
+  --red-error:#A11A2B;
+  --grey:#5B534F;
+  --grey-soft:#8C8582;
+  --line:#E4DFDD;
+  --paper:#FFFFFF;
+  --success:#2A7F5F;
+  --font-display:'Instrument Serif', Georgia, serif;
+  --font-body:'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  position:relative;min-height:100vh;overflow-x:hidden;
+  font-family:var(--font-body);color:var(--grey);
+  background:var(--maroon-deep);
 }
 
-* { box-sizing: border-box; }
-
-html {
-  min-height: 100%;
-  scroll-behavior: smooth;
+/* ---------- Background image ----------
+   Replace the src of the <img> below with your own image.
+   It fills the screen (cover) and is softened by a maroon scrim so the card always reads clearly. */
+.bg-photo{position:fixed;inset:0;z-index:0;overflow:hidden;background:linear-gradient(160deg,var(--maroon) 0%,var(--maroon-deep) 100%);}
+.bg-photo img{width:100%;height:100%;object-fit:contain;object-position:center top;display:block;}
+.bg-overlay{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg, rgba(74,15,28,0) 0%, rgba(74,15,28,0) 55%, rgba(35,8,17,.35) 100%);
 }
 
-body {
-  min-height: 100vh;
-  min-height: 100dvh;
-  margin: 0;
-  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
-  background-color: var(--maroon-dark);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
+/* ---------- Layout ---------- */
+.stage{
+  position:relative;z-index:2;min-height:100vh;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding:0 20px 7vh;
 }
-
-/* Background image: fixed layer (works on iOS too) with a dark fade
-   toward the bottom so the cards stay readable */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-color: var(--maroon-dark);
-  background-image:
-    linear-gradient(180deg,
-      rgba(42, 7, 16, 0.05) 0%,
-      rgba(42, 7, 16, 0.25) 45%,
-      rgba(42, 7, 16, 0.65) 100%),
-    url("https://d2bja440mdt72x.cloudfront.net/thailand-letters/PPTapotrait.png");
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: cover;
+.card{
+  position:relative;width:100%;max-width:420px;
+  background:rgba(255,255,255,.96);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-radius:14px;overflow:hidden;
+  padding:36px 30px 30px;text-align:center;
+  box-shadow:0 22px 50px rgba(20,4,9,.35);
+  animation:rise .7s ease both;
 }
-
-button, input { font: inherit; }
-
-.page {
-  min-height: 100vh;
-  min-height: 100dvh;
-  width: 100%;
-  padding: 0 18px 40px;
+.card::before{ /* thin brand bar */
+  content:"";position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--maroon) 0%,var(--maroon) 70%,var(--red) 100%);
 }
+@keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
-.main {
-  width: 100%;
-  max-width: 640px;
-  margin: 0 auto;
-  padding-top: 56vh;
-  padding-top: 56dvh;
+
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+.subcopy{font-size:15px;line-height:1.55;color:var(--grey);max-width:320px;margin:0 auto 20px;}
+
+/* ---------- Form ---------- */
+.input-wrap{margin-bottom:14px;}
+input{
+  display:block;width:100%;padding:14px 16px;font-size:16px;font-family:var(--font-body);color:var(--maroon-deep);
+  background:#FAF8F8;border:1px solid var(--line);border-radius:8px;outline:none;text-align:center;
+  transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
+input::placeholder{color:var(--grey-soft);}
+input:focus{border-color:var(--maroon);background:#fff;box-shadow:0 0 0 3px rgba(110,20,35,.12);}
 
-/* ---------- Search panel ---------- */
-
-.search-panel {
-  position: relative;
-  width: 100%;
-  padding: 28px 26px 26px;
-  border-radius: 12px;
-  border-top: 4px solid var(--maroon);
-  background: rgba(255, 255, 255, 0.95);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  box-shadow:
-    0 24px 60px rgba(20, 4, 9, 0.35),
-    0 2px 6px rgba(20, 4, 9, 0.15);
+button{
+  width:100%;padding:14px;border:none;border-radius:8px;cursor:pointer;
+  background:var(--maroon);color:#fff;
+  font-family:var(--font-body);font-weight:600;font-size:16px;letter-spacing:.02em;
+  transition:background .2s ease, transform .2s ease;
 }
+button:hover{background:var(--red);}
+button:active{transform:translateY(1px);}
+button:disabled{opacity:.6;cursor:not-allowed;background:var(--maroon);}
+button:focus-visible, input:focus-visible{outline:2px solid var(--red);outline-offset:2px;}
 
-.panel-intro {
-  margin: 0 0 22px;
-  color: #4B4447;
-  font-size: 14.5px;
-  line-height: 1.65;
-  max-width: 52ch;
+.loader{
+  display:none;margin-top:16px;align-items:center;justify-content:center;gap:8px;
+  font-size:14px;color:var(--grey);
 }
-
-.input-label {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--maroon-dark);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
+.loader.show{display:flex;}
+.spinner{
+  width:14px;height:14px;border:2px solid rgba(110,20,35,.18);border-top-color:var(--maroon);
+  border-radius:50%;display:inline-block;animation:spin .8s linear infinite;
 }
+@keyframes spin{to{transform:rotate(360deg);}}
 
-.input-row {
-  display: flex;
-  align-items: stretch;
-  gap: 10px;
-}
+#msg{margin-top:14px;text-align:center;font-weight:500;font-size:15px;}
+#msg:empty{margin-top:0;}
+.success{color:var(--success);}
+.nl-title{color:var(--grey);font-weight:500;font-size:14px;margin-bottom:10px;}
+.open-link{display:block;margin-top:8px;padding:12px;border:1px solid var(--line);border-radius:8px;background:#FAF8F8;color:var(--maroon);font-weight:600;text-decoration:none;}
+.open-link:hover{border-color:var(--maroon);}
+.error{color:var(--red-error);}
 
-.input-wrap {
-  position: relative;
-  flex: 1;
-  min-width: 0;
-}
 
-.input-wrap svg {
-  position: absolute;
-  top: 50%;
-  left: 14px;
-  width: 18px;
-  height: 18px;
-  transform: translateY(-50%);
-  stroke: #9A9093;
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  pointer-events: none;
-}
-
-.input-wrap input {
-  width: 100%;
-  height: 50px;
-  padding: 0 14px 0 42px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  outline: none;
-  background: #FFFFFF;
-  color: var(--text);
-  font-size: 15px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.input-wrap input:focus {
-  border-color: var(--maroon);
-  box-shadow: 0 0 0 4px rgba(110, 20, 35, 0.12);
-}
-
-.input-wrap input::placeholder {
-  color: #8C8386;
-  opacity: 1;
-}
-
-.input-row button {
-  flex-shrink: 0;
-  min-width: 150px;
-  height: 50px;
-  padding: 0 20px;
-  border: 0;
-  border-radius: 8px;
-  background: linear-gradient(180deg, #7D1829 0%, var(--maroon) 100%);
-  color: #FFFFFF;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  cursor: pointer;
-  box-shadow: 0 6px 14px rgba(110, 20, 35, 0.3);
-  transition: background 0.2s ease, box-shadow 0.2s ease;
-}
-
-.input-row button:hover {
-  background: linear-gradient(180deg, #D23B48 0%, var(--red) 100%);
-  box-shadow: 0 8px 18px rgba(200, 50, 63, 0.35);
-}
-
-.input-row button:focus-visible,
-.open-link:focus-visible {
-  outline: 3px solid #E9A7AE;
-  outline-offset: 2px;
-}
-
-.input-row button:disabled {
-  opacity: 0.65;
-  cursor: wait;
-}
-
-/* ---------- Status ---------- */
-
-.status {
-  display: none;
-  margin-top: 14px;
-  padding: 12px 14px;
-  border-radius: 8px;
-  font-size: 13px;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-
-.status.visible { display: block; }
-
-.status.success {
-  background: #EAF5EF;
-  border: 1px solid #C8E5D4;
-  color: #1F5F42;
-}
-
-.status.success::before { content: "✓ "; font-weight: 700; }
-
-.status.error {
-  background: #FBEDEE;
-  border: 1px solid #F1CDD1;
-  color: #9B1C2B;
-}
-
-.status.error::before { content: "! "; font-weight: 700; }
-
-/* ---------- Newsletter results ---------- */
-
-.newsletter-section {
-  display: none;
-  width: 100%;
-  margin: 18px auto 0;
-  scroll-margin-top: 16px;
-}
-
-.newsletter-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-height: 55vh;
-  max-height: 55dvh;
-  overflow-y: auto;
-  padding: 3px 6px 8px 3px;
-  overscroll-behavior: contain;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,.75) rgba(255,255,255,.15);
-}
-
-.newsletter-list::-webkit-scrollbar { width: 6px; }
-.newsletter-list::-webkit-scrollbar-track { background: rgba(255,255,255,.15); border-radius: 10px; }
-.newsletter-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,.75); border-radius: 10px; }
-
-.newsletter-item {
-  flex: 0 0 auto;
-  padding: 18px 20px;
-  border-left: 4px solid var(--maroon);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 10px 26px rgba(20, 4, 9, 0.22);
-}
-
-.newsletter-item-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.newsletter-item h3 {
-  margin: 0;
-  color: var(--maroon);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 1.2;
-}
-
-.newsletter-tag {
-  flex-shrink: 0;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: var(--soft);
-  color: var(--maroon);
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.newsletter-date {
-  margin: 8px 0 0;
-  color: var(--grey);
-  font-size: 13px;
-}
-
-.open-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 14px;
-  padding: 11px 18px;
-  border-radius: 8px;
-  background: var(--maroon);
-  color: #FFFFFF;
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.2s ease;
-}
-
-.open-link:hover { background: var(--red); }
-
-/* ---------- Mobile ---------- */
-
-@media (max-width: 520px) {
-  .page { padding-right: 12px; padding-left: 12px; }
-  .search-panel { padding: 22px 18px 20px; }
-  .panel-intro { font-size: 14px; margin-bottom: 18px; }
-  .input-row { flex-direction: column; gap: 10px; }
-  .input-row button { width: 100%; }
-  .newsletter-list { max-height: 48vh; max-height: 48dvh; }
-  .newsletter-item { padding: 16px; }
-  .newsletter-item h3 { font-size: 21px; }
-}
-
-@media (max-height: 600px) {
-  .main { padding-top: 46vh; padding-top: 46dvh; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  * { transition: none !important; }
+@media (max-width:480px){
+  .stage{padding:0 14px 5vh;}
+  .card{padding:30px 22px 22px;}
+  }
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
 }
 </style>
 </head>
-
 <body>
-<div class="page">
-  <main class="main">
 
-    <section class="search-panel">
-      <p class="panel-intro">
-        Enter your Employee ID or registered mobile number
-        to find and access your available newsletters.
-      </p>
-
-      <form id="searchForm">
-        <div class="input-row">
-          <div class="input-wrap">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="11" cy="8" r="4"></circle>
-              <path d="M4 20c0-3.5 3.1-6 7-6s7 2.5 7 6"></path>
-            </svg>
-            <input
-              type="text"
-              id="employeeInput"
-              name="input"
-              placeholder="Employee ID / Mobile Number"
-              autocomplete="off"
-              aria-label="Employee ID or Mobile Number"
-              required
-            >
-          </div>
-
-          <button type="submit" id="searchButton">
-            Find Newsletters
-          </button>
-        </div>
-      </form>
-
-      <div
-        class="status"
-        id="statusMessage"
-        role="status"
-        aria-live="polite"
-      ></div>
-    </section>
-
-    <section
-      class="newsletter-section"
-      id="newsletterSection"
-      aria-label="Available newsletters"
-    >
-      <div class="newsletter-list" id="newsletterList"></div>
-    </section>
-
-  </main>
+<div class="bg-photo" aria-hidden="true">
+  <!-- Replace this src with your background image -->
+  <img src="https://d2bja440mdt72x.cloudfront.net/thailand-letters/PPTapotrait.png" alt="">
+  <div class="bg-overlay"></div>
 </div>
 
+<main class="stage">
+  <section class="card">
+
+    <h1 class="sr-only">MDRT Earning Opportunity</h1>
+    <p class="subcopy">Enter your details below to view your personalised experience</p>
+
+    <div class="input-wrap">
+      <input
+        id="input"
+        placeholder="Advisor code / SAP ID / Mobile No."
+        autocomplete="off"
+      >
+    </div>
+    <button onclick="searchDoc()" id="btn">Click to view & download!</button>
+
+    <div class="loader" id="loader"><span class="spinner"></span><span>Searching...</span></div>
+    <div id="msg"></div>
+
+  </section>
+</main>
+
 <script>
-/* Replace with your deployed Apps Script URL ending in /exec. */
-const API_URL = "https://script.google.com/macros/s/AKfycbwVg4TFhhk--gzRg_k9aPW6h7lliAwj0sEy0bkEo_Nb3aM8IwhNhu4W3bBuiVrLaYQ/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbwVg4TFhhk--gzRg_k9aPW6h7lliAwj0sEy0bkEo_Nb3aM8IwhNhu4W3bBuiVrLaYQ/exec";
 
-/* Edit newsletter dates here. */
-const NEWSLETTER_DATES = {
-  NL_1: "01 October 2026",
-  NL_2: "15 October 2026",
-  NL_3: "01 November 2026",
-  NL_4: "15 November 2026",
-  NL_5: "01 December 2026",
-  NL_6: "15 December 2026"
-};
-
-const NEWSLETTER_TITLES = {
-  NL_1: "Newsletter 1",
-  NL_2: "Newsletter 2",
-  NL_3: "Newsletter 3",
-  NL_4: "Newsletter 4",
-  NL_5: "Newsletter 5",
-  NL_6: "Newsletter 6"
-};
-
-const NEWSLETTER_KEYS = [
-  "NL_1", "NL_2", "NL_3",
-  "NL_4", "NL_5", "NL_6"
-];
-
-const searchForm = document.getElementById("searchForm");
-const employeeInput = document.getElementById("employeeInput");
-const searchButton = document.getElementById("searchButton");
-const statusMessage = document.getElementById("statusMessage");
-const newsletterSection = document.getElementById("newsletterSection");
-const newsletterList = document.getElementById("newsletterList");
-
-let activeScript = null;
-let requestTimer = null;
-let requestId = 0;
-
-function setStatus(message, type) {
-  statusMessage.textContent = message;
-  statusMessage.className = "status visible";
-
-  if (type) {
-    statusMessage.classList.add(type);
+async function searchDoc(){
+  const value=document.getElementById("input").value.trim();
+  const msg=document.getElementById("msg");
+  const loader=document.getElementById("loader");
+  const btn=document.getElementById("btn");
+  msg.innerHTML="";
+  if(value===""){
+    msg.className="error";
+    msg.innerHTML="Please enter your L1 code, Employee ID or Mobile Number.";
+    return;
   }
-}
-
-function clearResults() {
-  newsletterList.replaceChildren();
-  newsletterSection.style.display = "none";
-}
-
-function getValidNewsletterUrl(value) {
-  const url = String(value || "").trim();
-
-  if (!url) return "";
-
-  try {
-    const parsed = new URL(url);
-
-    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
-      return "";
+  loader.classList.add("show");
+  btn.disabled=true;
+  try{
+    const response=await fetch(API_URL+"?input="+encodeURIComponent(value));
+    const data=await response.json();
+    loader.classList.remove("show");
+    btn.disabled=false;
+    if(data.status==="success"){
+      msg.className="success";
+      msg.innerHTML="";
+      const items=Object.keys(data.newsletters||{}).sort();
+      if(items.length===0){
+        msg.className="error";
+        msg.textContent="No newsletters available yet.";
+      }else{
+        const title=document.createElement("div");
+        title.className="nl-title";
+        title.textContent="Tap to open your newsletters";
+        msg.appendChild(title);
+        items.forEach(function(key){
+          const a=document.createElement("a");
+          a.href=data.newsletters[key];a.target="_blank";a.rel="noopener";a.className="open-link";
+          a.textContent="Newsletter "+key.replace("NL_","");
+          msg.appendChild(a);
+        });
+      }
+    }else{
+      msg.className="error";
+      msg.innerHTML=data.message;
     }
-
-    return parsed.href;
-  } catch (error) {
-    return "";
+  }catch(err){
+    loader.classList.remove("show");
+    btn.disabled=false;
+    msg.className="error";
+    msg.innerHTML="Unable to connect to server.";
   }
 }
-
-function renderNewsletters(newsletters) {
-  newsletterList.replaceChildren();
-
-  const available = NEWSLETTER_KEYS.filter(function(key) {
-    return getValidNewsletterUrl(newsletters[key]) !== "";
-  });
-
-  if (available.length === 0) {
-    newsletterSection.style.display = "none";
-
-    setStatus(
-      "Your record was found, but no newsletter links are currently available.",
-      "error"
-    );
-    return;
-  }
-
-  available.forEach(function(key) {
-    const url = getValidNewsletterUrl(newsletters[key]);
-
-    const item = document.createElement("article");
-    item.className = "newsletter-item";
-
-    const top = document.createElement("div");
-    top.className = "newsletter-item-top";
-
-    const title = document.createElement("h3");
-    title.textContent = NEWSLETTER_TITLES[key] || key;
-
-    const tag = document.createElement("span");
-    tag.className = "newsletter-tag";
-    tag.textContent = key.replace("_", " ");
-
-    top.appendChild(title);
-    top.appendChild(tag);
-
-    const date = document.createElement("p");
-    date.className = "newsletter-date";
-    date.textContent =
-      "Newsletter date: " +
-      (NEWSLETTER_DATES[key] || "Date to be announced");
-
-    const link = document.createElement("a");
-    link.className = "open-link";
-    link.href = url;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.textContent = "Open Newsletter ↗";
-
-    item.appendChild(top);
-    item.appendChild(date);
-    item.appendChild(link);
-
-    newsletterList.appendChild(item);
-  });
-
-  newsletterSection.style.display = "block";
-
-  setStatus(
-    available.length +
-      " newsletter" +
-      (available.length === 1 ? "" : "s") +
-      " found. Your available publications are listed below.",
-    "success"
-  );
-
-  newsletterSection.scrollIntoView({
-    behavior: "smooth",
-    block: "nearest"
-  });
-}
-
-function cleanupRequest() {
-  if (activeScript) {
-    activeScript.remove();
-    activeScript = null;
-  }
-
-  if (requestTimer) {
-    clearTimeout(requestTimer);
-    requestTimer = null;
-  }
-
-  delete window.newsletterResponse;
-}
-
-function handleResponse(data, currentRequestId) {
-  if (currentRequestId !== requestId) return;
-
-  cleanupRequest();
-
-  searchButton.disabled = false;
-  searchButton.textContent = "Find Newsletters";
-
-  if (!data || typeof data !== "object") {
-    setStatus("The server returned an invalid response. Please try again.", "error");
-    return;
-  }
-
-  if (data.status !== "success") {
-    setStatus(
-      data.message || "Unable to retrieve newsletters. Please try again.",
-      "error"
-    );
-    return;
-  }
-
-  renderNewsletters(data.newsletters || {});
-}
-
-searchForm.addEventListener("submit", function(event) {
-  event.preventDefault();
-
-  const input = employeeInput.value.trim();
-
-  if (!input) {
-    setStatus("Please enter your Employee ID or Mobile Number.", "error");
-    employeeInput.focus();
-    return;
-  }
-
-  if (!API_URL || API_URL === "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE") {
-    setStatus("Please configure the Apps Script URL in the HTML.", "error");
-    return;
-  }
-
-  if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec\/?$/.test(API_URL)) {
-    setStatus("Please enter a valid deployed Apps Script URL ending in /exec.", "error");
-    return;
-  }
-
-  requestId++;
-  const currentRequestId = requestId;
-
-  cleanupRequest();
-  clearResults();
-
-  searchButton.disabled = true;
-  searchButton.textContent = "Searching...";
-  setStatus("Checking your details and finding your newsletters...", "");
-
-  window.newsletterResponse = function(data) {
-    handleResponse(data, currentRequestId);
-  };
-
-  const separator = API_URL.includes("?") ? "&" : "?";
-
-  activeScript = document.createElement("script");
-  activeScript.src =
-    API_URL +
-    separator +
-    "input=" + encodeURIComponent(input) +
-    "&callback=newsletterResponse" +
-    "&_=" + Date.now();
-
-  activeScript.onerror = function() {
-    if (currentRequestId !== requestId) return;
-
-    cleanupRequest();
-
-    searchButton.disabled = false;
-    searchButton.textContent = "Find Newsletters";
-
-    setStatus(
-      "Unable to connect to the server. Check your Apps Script deployment and try again.",
-      "error"
-    );
-  };
-
-  requestTimer = setTimeout(function() {
-    if (currentRequestId !== requestId) return;
-
-    cleanupRequest();
-
-    searchButton.disabled = false;
-    searchButton.textContent = "Find Newsletters";
-
-    setStatus("The request timed out. Please try again.", "error");
-  }, 20000);
-
-  document.body.appendChild(activeScript);
-});
 </script>
 </body>
 </html>

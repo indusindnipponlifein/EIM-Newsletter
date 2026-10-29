@@ -50,8 +50,6 @@ input {
   font: inherit;
 }
 
-/* Position the search tab lower on the background image */
-
 .page {
   min-height: 100vh;
   min-height: 100dvh;
@@ -67,15 +65,53 @@ input {
   padding-top: 58dvh;
 }
 
-/* Search tab */
+/* Main search tab */
 
 .search-panel {
   width: 100%;
-  padding: 16px;
+  padding: 23px;
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 9px;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.97);
+  color: var(--text);
   box-shadow: 0 12px 32px rgba(20, 4, 9, 0.2);
+}
+
+.tab-heading {
+  margin-bottom: 20px;
+}
+
+.tab-eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: var(--maroon);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.tab-heading h2 {
+  margin: 0;
+  color: var(--maroon-dark);
+  font-family: Georgia, serif;
+  font-size: clamp(25px, 5vw, 32px);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.tab-heading p {
+  margin: 9px 0 0;
+  color: #686064;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .input-row {
@@ -131,12 +167,12 @@ input {
   cursor: wait;
 }
 
-/* Status messages stay inside the search tab */
+/* Feedback appears inside the tab */
 
 .status {
   display: none;
-  margin-top: 12px;
-  padding: 10px 12px;
+  margin-top: 13px;
+  padding: 11px 12px;
   border-radius: 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -147,17 +183,27 @@ input {
   display: block;
 }
 
-.status.error {
-  background: #FBEDEE;
-  color: #9B1C2B;
-}
-
 .status.success {
   background: #EAF5EF;
   color: #236747;
 }
 
-/* Scrollable newsletter results */
+.status.success::before {
+  content: "✓ ";
+  font-weight: 700;
+}
+
+.status.error {
+  background: #FBEDEE;
+  color: #9B1C2B;
+}
+
+.status.error::before {
+  content: "! ";
+  font-weight: 700;
+}
+
+/* Newsletter results */
 
 .newsletter-section {
   display: none;
@@ -254,7 +300,7 @@ input {
   background: var(--red);
 }
 
-/* No extra text or footer outside the tab */
+/* Mobile layout */
 
 @media (max-width: 520px) {
   .page {
@@ -268,7 +314,15 @@ input {
   }
 
   .search-panel {
-    padding: 12px;
+    padding: 19px;
+  }
+
+  .tab-heading {
+    margin-bottom: 17px;
+  }
+
+  .tab-heading p {
+    font-size: 12px;
   }
 
   .input-row {
@@ -319,19 +373,33 @@ input {
   <main class="main">
 
     <section class="search-panel">
+      <div class="tab-heading">
+        <span class="tab-eyebrow">YOUR EXCLUSIVE ACCESS</span>
+        <h2>Discover Your Newsletters</h2>
+        <p>
+          Enter your Employee ID or registered mobile number
+          to find and access your available newsletters.
+        </p>
+      </div>
+
       <form id="searchForm">
+        <label class="input-label" for="employeeInput">
+          Employee ID / Mobile Number
+        </label>
+
         <div class="input-row">
           <input
             type="text"
             id="employeeInput"
             name="input"
-            placeholder="Enter Employee ID / Mobile Number"
+            placeholder="Enter your details here"
             autocomplete="off"
             aria-label="Employee ID or Mobile Number"
             required
           >
+
           <button type="submit" id="searchButton">
-            View Newsletters
+            Find Newsletters
           </button>
         </div>
       </form>
@@ -356,10 +424,10 @@ input {
 </div>
 
 <script>
-/* Replace with your deployed Apps Script Web App URL. */
+/* Replace with your deployed Apps Script URL ending in /exec. */
 const API_URL = "https://script.google.com/macros/s/AKfycbwVg4TFhhk--gzRg_k9aPW6h7lliAwj0sEy0bkEo_Nb3aM8IwhNhu4W3bBuiVrLaYQ/exec";
 
-/* Maintain newsletter dates here in the HTML only. */
+/* Edit newsletter dates here. */
 const NEWSLETTER_DATES = {
   NL_1: "01 October 2026",
   NL_2: "15 October 2026",
@@ -438,8 +506,9 @@ function renderNewsletters(newsletters) {
 
   if (available.length === 0) {
     newsletterSection.style.display = "none";
+
     setStatus(
-      "No newsletter links are currently available for your record.",
+      "Your record was found, but no newsletter links are currently available.",
       "error"
     );
     return;
@@ -490,7 +559,7 @@ function renderNewsletters(newsletters) {
     available.length +
       " newsletter" +
       (available.length === 1 ? "" : "s") +
-      " available.",
+      " found. Your available publications are listed below.",
     "success"
   );
 
@@ -520,16 +589,19 @@ function handleResponse(data, currentRequestId) {
   cleanupRequest();
 
   searchButton.disabled = false;
-  searchButton.textContent = "View Newsletters";
+  searchButton.textContent = "Find Newsletters";
 
   if (!data || typeof data !== "object") {
-    setStatus("Invalid server response. Please try again.", "error");
+    setStatus(
+      "The server returned an invalid response. Please try again.",
+      "error"
+    );
     return;
   }
 
   if (data.status !== "success") {
     setStatus(
-      data.message || "Unable to retrieve newsletters.",
+      data.message || "Unable to retrieve newsletters. Please try again.",
       "error"
     );
     return;
@@ -544,7 +616,7 @@ searchForm.addEventListener("submit", function(event) {
   const input = employeeInput.value.trim();
 
   if (!input) {
-    setStatus("Enter your Employee ID or Mobile Number.", "error");
+    setStatus("Please enter your Employee ID or Mobile Number.", "error");
     employeeInput.focus();
     return;
   }
@@ -553,12 +625,15 @@ searchForm.addEventListener("submit", function(event) {
     !API_URL ||
     API_URL === "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"
   ) {
-    setStatus("Configure the Apps Script URL in the HTML.", "error");
+    setStatus("Please configure the Apps Script URL in the HTML.", "error");
     return;
   }
 
   if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec\/?$/.test(API_URL)) {
-    setStatus("Enter a valid deployed Apps Script URL ending in /exec.", "error");
+    setStatus(
+      "Please enter a valid deployed Apps Script URL ending in /exec.",
+      "error"
+    );
     return;
   }
 
@@ -569,8 +644,8 @@ searchForm.addEventListener("submit", function(event) {
   clearResults();
 
   searchButton.disabled = true;
-  searchButton.textContent = "Loading...";
-  setStatus("Checking details...", "");
+  searchButton.textContent = "Searching...";
+  setStatus("Checking your details and finding your newsletters...", "");
 
   window.newsletterResponse = function(data) {
     handleResponse(data, currentRequestId);
@@ -590,11 +665,12 @@ searchForm.addEventListener("submit", function(event) {
     if (currentRequestId !== requestId) return;
 
     cleanupRequest();
+
     searchButton.disabled = false;
-    searchButton.textContent = "View Newsletters";
+    searchButton.textContent = "Find Newsletters";
 
     setStatus(
-      "Unable to connect. Check your Apps Script deployment and try again.",
+      "Unable to connect to the server. Check your Apps Script deployment and try again.",
       "error"
     );
   };
@@ -603,10 +679,11 @@ searchForm.addEventListener("submit", function(event) {
     if (currentRequestId !== requestId) return;
 
     cleanupRequest();
-    searchButton.disabled = false;
-    searchButton.textContent = "View Newsletters";
 
-    setStatus("Request timed out. Please try again.", "error");
+    searchButton.disabled = false;
+    searchButton.textContent = "Find Newsletters";
+
+    setStatus("The request timed out. Please try again.", "error");
   }, 20000);
 
   document.body.appendChild(activeScript);
